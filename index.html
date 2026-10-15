@@ -135,7 +135,88 @@ a.vc{color:var(--wine)}.lt .btn{color:var(--gold);border-color:var(--gold)}.lt .
   .hp{top:28%;width:62%;gap:.2rem}
 }
 @media (prefers-reduced-motion:reduce){#cover .ti,#cover .ti2,#cover .ti3,#cover .ti1{animation:none!important}.rd .hp>*{animation:none!important;opacity:1!important}}
+/* SCROLL INDICATOR ONLY — does not style hero text */
+#hero .scroll-cue {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  color: #f3d58c;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  text-shadow: 0 2px 8px #000;
+  opacity: 0;
+}
 
+.rd #hero .scroll-cue {
+  animation: scrollCueAppear .8s ease-out 1s forwards;
+}
+
+#hero .scroll-cue-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#hero .scroll-cue-arrows i {
+  width: 11px;
+  height: 11px;
+  border-right: 2px solid #f3d58c;
+  border-bottom: 2px solid #f3d58c;
+  transform: rotate(45deg);
+  margin-top: -3px;
+  animation: scrollCueMove 1.4s ease-in-out infinite;
+}
+
+#hero .scroll-cue-arrows i:nth-child(2) {
+  animation-delay: .2s;
+  opacity: .65;
+}
+
+@keyframes scrollCueAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes scrollCueMove {
+  0%, 100% {
+    translate: 0 -2px;
+    opacity: .45;
+  }
+  50% {
+    translate: 0 4px;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero .scroll-cue,
+  #hero .scroll-cue-arrows i {
+    animation: none !important;
+  }
+
+  .rd #hero .scroll-cue {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
 </style></head><body class="lock">
 <div id="cover"><div class="ti"><p class="ti1">Tap to open</p></div></div>
 <canvas id="fx"></canvas>
@@ -150,6 +231,20 @@ a.vc{color:var(--wine)}.lt .btn{color:var(--gold);border-color:var(--gold)}.lt .
   <div class="hw">
     <div class="hp"><p class="lab">Walima Ceremony</p><div class="nm s">Mohd Sakib Shaikh</div><div class="amp s">&amp;</div><div class="nm s">Shaikh Gulesaba</div></div>
   </div>
+  <!-- Scroll indicator only -->
+<a class="scroll-cue"
+   href="#invite-start"
+   aria-label="Scroll down to the invitation"
+   onclick="event.preventDefault(); document.getElementById('invite-start').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });">
+
+  <span>Scroll Down</span>
+
+  <span class="scroll-cue-arrows" aria-hidden="true">
+    <i></i>
+    <i></i>
+  </span>
+
+</a>
 </header>
 <div class="lt">
 <section>
